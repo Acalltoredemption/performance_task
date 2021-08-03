@@ -24,7 +24,7 @@ const UserTable: React.FC = () => {
     { title: "Verified", field: "verified" },
     { title: "Active", field: "active" },
     { title: "Created", field: "created_at" },
-  ];
+  ]; 
 
   //Controls the open/closed state of modals
   const [modalShow, setModalShow] = useState<boolean>(false);
