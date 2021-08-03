@@ -6,7 +6,7 @@ import { Alert } from "react-bootstrap";
 import { UserData } from "../../types/types";
 import MaterialTable from "material-table";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./UserTable.css";
@@ -98,7 +98,7 @@ const UserTable: React.FC = () => {
     const newArray = usersArray.filter((_, i: number) => i !== index);
     setUserData(newArray);
     setModalShow(false);
-    toast.success('User Deleted');
+    toast.success("User Deleted");
   };
   //Initial rendering of users
   useEffect(() => {
@@ -117,20 +117,17 @@ const UserTable: React.FC = () => {
 
   //Conditional rendering of users based on filterData state change of district
   useEffect(() => {
-    if(userData){
-    setUserData(initialState);
-    if (
-      filterData.district == "Select a District"
-    ) {
+    if (userData) {
       setUserData(initialState);
-    } else if (filterData.district !== "Select a District") {
-      const usersArray = [...userData]
-        .filter(function (e) {
+      if (filterData.district == "Select a District") {
+        setUserData(initialState);
+      } else if (filterData.district !== "Select a District") {
+        const usersArray = [...userData].filter(function (e) {
           return e.district == filterData.district;
         });
-      setFilterState(usersArray);
+        setFilterState(usersArray);
+      }
     }
-  }
     return;
   }, [timesToggled]);
 
@@ -154,7 +151,7 @@ const UserTable: React.FC = () => {
     newArray.unshift(editUserData);
     setUserData(newArray);
     seteditModalShow(false);
-    toast.success('User Edited');
+    toast.success("User Edited");
   };
   // functions pertaining to opening new user modal, populating new user data, and pushing new user data to overall state
   const handleNewUserModal = () => {
@@ -211,7 +208,7 @@ const UserTable: React.FC = () => {
       userArray.unshift(newUserData);
       setUserData(userArray);
       setnewModalShow(false);
-      toast.success('User Created');
+      toast.success("User Created");
     }
   };
 
@@ -223,224 +220,224 @@ const UserTable: React.FC = () => {
 
   return (
     <div>
-    <ToastContainer />
-    <div className="overallgridbox" style={{ marginTop: "7rem" }}>
-      <div className="usersgridbox">
-        <div className="userslist">
-          <div className="userstable">
-            <div className="headings headingselement">
-              <MaterialTable
-                title="User Data"
-                data={userData}
-                columns={columns}
-                actions={[
-                  {
-                    icon: "edit",
-                    tooltip: "Edit User",
-                    onClick: (e, user) => {
-                      handleEditUser(user);
+      <ToastContainer />
+      <div className="overallgridbox" style={{ marginTop: "7rem" }}>
+        <div className="usersgridbox">
+          <div className="userslist">
+            <div className="userstable">
+              <div className="headings headingselement">
+                <MaterialTable
+                  title="User Data"
+                  data={userData}
+                  columns={columns}
+                  actions={[
+                    {
+                      icon: "edit",
+                      tooltip: "Edit User",
+                      onClick: (e, user) => {
+                        handleEditUser(user);
+                      },
                     },
-                  },
-                  {
-                    icon: "delete",
-                    tooltip: "Delete User",
-                    onClick: (e, user) => {
-                      handleModalDelete(user);
+                    {
+                      icon: "delete",
+                      tooltip: "Delete User",
+                      onClick: (e, user) => {
+                        handleModalDelete(user);
+                      },
                     },
-                  },
-                  {
-                    icon: "add",
-                    tooltip: "Add User",
-                    onClick: (e) => {
-                      handleNewUserModal();
+                    {
+                      icon: "add",
+                      tooltip: "Add User",
+                      onClick: (e) => {
+                        handleNewUserModal();
+                      },
+                      isFreeAction: true,
                     },
-                    isFreeAction: true,
-                  },
-                ]}
-                onRowClick={(evt, selectedRow) =>
-                  setSelectedRow(selectedRow.first_name)
-                }
-                options={{
-                  paging: true,
-                  pageSize: 20,
-                  emptyRowsWhenPaging: true,
-                  pageSizeOptions: [5, 10, 20, 50],
-                  rowStyle: (rowData) => ({
-                    backgroundColor:
-                      selectedRow === rowData.first_name ? "#dbb63d" : "#FFF",
-                    color:
-                      selectedRow === rowData.first_name ? "#FFF" : "#000000",
-                  }),
-                }}
-              />
-            </div>
-            <Modal show={modalShow}>
-              <Modal.Header>Confirm Deletion</Modal.Header>
-              <Modal.Body>Are you SURE You want to Delete?</Modal.Body>
-              <Modal.Footer>
-                <button className="btn btn-primary" onClick={hideModal}>
-                  Cancel
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={(e) => handleDeleteUser(deletionID)}
-                >
-                  Delete
-                </button>
-              </Modal.Footer>
-            </Modal>
-            <Modal show={newModalShow}>
-              <Modal.Header>New User</Modal.Header>
-              <Modal.Body>
-                <Form.Group>
-                  {error && <Alert variant="danger">{error}</Alert>}
-                  <Form.Label>First Name:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={newUserChange}
-                    id="first_name"
-                    name="edit-firstname"
-                    value={newUserData.first_name}
-                  ></Form.Control>
-                  <Form.Label>Last Name:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={newUserChange}
-                    id="last_name"
-                    name="edit-lastname"
-                    value={newUserData.last_name}
-                  ></Form.Control>
-                  <Form.Label>Middle Initial:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={newUserChange}
-                    id="middle_initial"
-                    name="edit-middle"
-                    value={newUserData.middle_initial}
-                  ></Form.Control>
-                  <Form.Label>Email:</Form.Label>
-                  <Form.Control
-                    type="email"
-                    onChange={newUserChange}
-                    id="email"
-                    name="edit-email"
-                    value={newUserData.email}
-                  ></Form.Control>
-                  <Form.Label>District:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={newUserChange}
-                    id="district"
-                    name="edit-district"
-                    value={newUserData.district}
-                  ></Form.Control>
-                  <Form.Label>Verified:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={newUserChange}
-                    id="verified"
-                    name="edit-verified"
-                    value={newUserData.verified.toString()}
-                  ></Form.Control>
-                  <Form.Label>Active:</Form.Label>
-                  <Form.Control
-                    type="boolean"
-                    onChange={newUserChange}
-                    id="active"
-                    name="edit-active"
-                    value={newUserData.active.toString()}
-                  ></Form.Control>
-                </Form.Group>
-              </Modal.Body>
-              <Modal.Footer>
-                <button className="btn btn-primary" onClick={hideNewModal}>
-                  Cancel
-                </button>
-                <button
-                  className="btn btn-success"
-                  onClick={(e) => finalizeNewUser(newUserData)}
-                >
-                  {" "}
-                  Create User{" "}
-                </button>
-              </Modal.Footer>
-            </Modal>
+                  ]}
+                  onRowClick={(evt, selectedRow) =>
+                    setSelectedRow(selectedRow.first_name)
+                  }
+                  options={{
+                    paging: true,
+                    pageSize: 20,
+                    emptyRowsWhenPaging: true,
+                    pageSizeOptions: [5, 10, 20, 50],
+                    rowStyle: (rowData) => ({
+                      backgroundColor:
+                        selectedRow === rowData.first_name ? "#dbb63d" : "#FFF",
+                      color:
+                        selectedRow === rowData.first_name ? "#FFF" : "#000000",
+                    }),
+                  }}
+                />
+              </div>
+              <Modal show={modalShow}>
+                <Modal.Header>Confirm Deletion</Modal.Header>
+                <Modal.Body>Are you SURE You want to Delete?</Modal.Body>
+                <Modal.Footer>
+                  <button className="btn btn-primary" onClick={hideModal}>
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={(e) => handleDeleteUser(deletionID)}
+                  >
+                    Delete
+                  </button>
+                </Modal.Footer>
+              </Modal>
+              <Modal show={newModalShow}>
+                <Modal.Header>New User</Modal.Header>
+                <Modal.Body>
+                  <Form.Group>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form.Label>First Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={newUserChange}
+                      id="first_name"
+                      name="edit-firstname"
+                      value={newUserData.first_name}
+                    ></Form.Control>
+                    <Form.Label>Last Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={newUserChange}
+                      id="last_name"
+                      name="edit-lastname"
+                      value={newUserData.last_name}
+                    ></Form.Control>
+                    <Form.Label>Middle Initial:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={newUserChange}
+                      id="middle_initial"
+                      name="edit-middle"
+                      value={newUserData.middle_initial}
+                    ></Form.Control>
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      onChange={newUserChange}
+                      id="email"
+                      name="edit-email"
+                      value={newUserData.email}
+                    ></Form.Control>
+                    <Form.Label>District:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={newUserChange}
+                      id="district"
+                      name="edit-district"
+                      value={newUserData.district}
+                    ></Form.Control>
+                    <Form.Label>Verified:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={newUserChange}
+                      id="verified"
+                      name="edit-verified"
+                      value={newUserData.verified.toString()}
+                    ></Form.Control>
+                    <Form.Label>Active:</Form.Label>
+                    <Form.Control
+                      type="boolean"
+                      onChange={newUserChange}
+                      id="active"
+                      name="edit-active"
+                      value={newUserData.active.toString()}
+                    ></Form.Control>
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <button className="btn btn-primary" onClick={hideNewModal}>
+                    Cancel
+                  </button> 
+                  <button
+                    className="btn btn-success"
+                    onClick={(e) => finalizeNewUser(newUserData)}
+                  >
+                    {" "}
+                    Create User{" "}
+                  </button>
+                </Modal.Footer>
+              </Modal>
 
-            <Modal show={editModalShow}>
-              <Modal.Header>Edit User</Modal.Header>
-              <Modal.Body>
-                <Form.Group>
-                  <Form.Label>First Name:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleEditChange}
-                    id="first_name"
-                    name="edit-firstname"
-                    value={editUserData.first_name}
-                  ></Form.Control>
-                  <Form.Label>Last Name:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleEditChange}
-                    id="last_name"
-                    name="edit-firstname"
-                    value={editUserData.last_name}
-                  ></Form.Control>
-                  <Form.Label>Middle Initial:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleEditChange}
-                    id="middle_initial"
-                    name="edit-firstname"
-                    value={editUserData.middle_initial}
-                  ></Form.Control>
-                  <Form.Label>Email:</Form.Label>
-                  <Form.Control
-                    type="email"
-                    onChange={handleEditChange}
-                    id="email"
-                    name="edit-email"
-                    value={editUserData.email}
-                  ></Form.Control>
-                  <Form.Label>District:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleEditChange}
-                    id="district"
-                    name="edit-firstname"
-                    value={editUserData.district}
-                  ></Form.Control>
-                  <Form.Label>Verified:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleEditChange}
-                    id="verified"
-                    name="edit-firstname"
-                    value={editUserData.verified.toString()}
-                  ></Form.Control>
-                </Form.Group>
-              </Modal.Body>
-              <Modal.Footer>
-                <button className="btn btn-primary" onClick={hideEditModal}>
-                  Cancel
-                </button>
-                <button
-                  className="btn btn-success"
-                  onClick={(e) => finalizeEditUser(editUserData)}
-                >
-                  {" "}
-                  Edit{" "}
-                </button>
-              </Modal.Footer>
-            </Modal>
+              <Modal show={editModalShow}>
+                <Modal.Header>Edit User</Modal.Header>
+                <Modal.Body>
+                  <Form.Group>
+                    <Form.Label>First Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={handleEditChange}
+                      id="first_name"
+                      name="edit-firstname"
+                      value={editUserData.first_name}
+                    ></Form.Control>
+                    <Form.Label>Last Name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={handleEditChange}
+                      id="last_name"
+                      name="edit-firstname"
+                      value={editUserData.last_name}
+                    ></Form.Control>
+                    <Form.Label>Middle Initial:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={handleEditChange}
+                      id="middle_initial"
+                      name="edit-firstname"
+                      value={editUserData.middle_initial}
+                    ></Form.Control>
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      onChange={handleEditChange}
+                      id="email"
+                      name="edit-email"
+                      value={editUserData.email}
+                    ></Form.Control>
+                    <Form.Label>District:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={handleEditChange}
+                      id="district"
+                      name="edit-firstname"
+                      value={editUserData.district}
+                    ></Form.Control>
+                    <Form.Label>Verified:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={handleEditChange}
+                      id="verified"
+                      name="edit-firstname"
+                      value={editUserData.verified.toString()}
+                    ></Form.Control>
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                  <button className="btn btn-primary" onClick={hideEditModal}>
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-success"
+                    onClick={(e) => finalizeEditUser(editUserData)}
+                  >
+                    {" "}
+                    Edit{" "}
+                  </button>
+                </Modal.Footer>
+              </Modal>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="filtergridbox">
-        <Filter className="filterstyler" onChange={eventHandler} />
+        <div className="filtergridbox">
+          <Filter className="filterstyler" onChange={eventHandler} />
+        </div>
       </div>
-    </div>
     </div>
   );
 };
