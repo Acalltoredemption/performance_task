@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavbarLink from '../components/NavbarLink';
 import '../stylesheets/navbar.css';
 
@@ -15,16 +15,6 @@ const Navbar: React.FC = () => {
                     <NavbarLink text="Curriculum Library" />
                     <NavbarLink text="PD & Learning" />
                     <NavbarLink text="Help" />
-                    <li className="nav-item dropdown show"></li>
-                    <li className="nav-item dropdown show">
-                        <a className="nav-link dropdown-toggle text-lowercase text-capitalize" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin
-
-                            <div className="avatar avatar-sm" style={{position:"relative"}}>
-                                A
-                            </div>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </nav>

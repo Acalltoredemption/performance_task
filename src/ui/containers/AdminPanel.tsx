@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import UserTable from '../components/UserTable';
 
 const AdminPanel: React.FC = () => {
