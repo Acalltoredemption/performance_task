@@ -7,9 +7,7 @@ import { UserData } from "../../types/types";
 import MaterialTable from "material-table";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./UserTable.css";
 
 const UserTable: React.FC = () => {
   //Main state storage for user data
@@ -248,7 +246,7 @@ const UserTable: React.FC = () => {
                     {
                       icon: "add",
                       tooltip: "Add User",
-                      onClick: (e) => {
+                      onClick: () => {
                         handleNewUserModal();
                       },
                       isFreeAction: true,
@@ -423,7 +421,7 @@ const UserTable: React.FC = () => {
                   </button>
                   <button
                     className="btn btn-success"
-                    onClick={(e) => finalizeEditUser(editUserData)}
+                    onClick={() => finalizeEditUser(editUserData)}
                   >
                     {" "}
                     Edit{" "}

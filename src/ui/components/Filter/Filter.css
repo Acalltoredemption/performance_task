@@ -1,7 +1,7 @@
 .filterscard {
     background-color: white;
     border-radius: 15px;
-    padding-top: 15px;
+    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
     width: 300px;
@@ -10,15 +10,11 @@
     margin-bottom: 20px;
     height: 100px;
     position: fixed;
-    top: 40%;
+    top: 80%;
+    right: 0;
     border: 1px solid black;
 }
 .dropdownstyler {
     text-align: center;
     margin-top: 20px;
-}
-
-.clearbutton {
-    text-align: center;
-    padding-top: 10px;
 }
